@@ -17,7 +17,7 @@ public class CustomProgressDialog extends ProgressDialog {
 	public CustomProgressDialog(Context context, int theme) {
 		super(context, theme);
 	}
-	
+		
     public static CustomProgressDialog show(Context context, CharSequence title,
             CharSequence message) {
     	CustomProgressDialog dialog = new CustomProgressDialog(context);

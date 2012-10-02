@@ -25,6 +25,7 @@ public abstract class NetworkRequestFactory extends AsyncTask<String, Void, Stri
 	protected Exception exception = null;
 	protected boolean showError;
 	protected boolean toast;
+	protected int statusCode = 0;
 
 	public abstract HttpUriRequest sendDataToServer(String url) throws JSONException, UnsupportedEncodingException;
 	public abstract void parseResponseFromServer(String result);
@@ -92,10 +93,8 @@ public abstract class NetworkRequestFactory extends AsyncTask<String, Void, Stri
 					while ((s = buffer.readLine()) != null) {
 						response += s;
 					}
-
-					//Response will be nil for some of the update requests. This way, no response should be null or empty (Assumption yet to be tested, though)
-					//but it is already handled and taken for granted in postExec. Please correct if I'm wrong.
-					if(response.length() == 0) response = String.valueOf(execute.getStatusLine().getStatusCode());
+					
+					if(execute.getStatusLine() != null) statusCode = execute.getStatusLine().getStatusCode();
 				} catch (ConnectTimeoutException e) {
 					Log.e(this.getClass().toString(), "ConnectTimeoutException: " + e.toString());
 					exception = e;
@@ -130,16 +129,16 @@ public abstract class NetworkRequestFactory extends AsyncTask<String, Void, Stri
 		HTTPBuilder.setParameter(put);
 		return put;
 	}
+	
+	public void setCustomProgressDialog(CustomProgressDialog dialog) {
+		this.dialog = dialog;
+	}
 
 	@Override
 	protected final void onPostExecute(String result) {
 		boolean error = false;
 		if(dialog != null) dialog.dismiss();
 		if(Util.handleConnectionException(context, exception, showError, toast))  error = true;
-		
-		if(result.trim().length() == 0) {
-			error = true;
-		}
 		
 		if(error) {
 			additionalExceptionHandling();

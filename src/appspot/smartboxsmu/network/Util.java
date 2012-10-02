@@ -14,7 +14,10 @@ import java.net.SocketTimeoutException;
 import java.util.Calendar;
 import java.util.Properties;
 
+import org.apache.http.HttpStatus;
 import org.apache.http.conn.ConnectTimeoutException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -308,4 +311,14 @@ public class Util {
 					Toast.LENGTH_SHORT);
 		}
 	}
+
+	public static boolean tryParseOKStatusCode(String result) {
+		try {
+			return Integer.parseInt(result) == HttpStatus.SC_OK;
+		} catch (Exception e) {
+			
+		}
+		return false;
+	}
+
 }
