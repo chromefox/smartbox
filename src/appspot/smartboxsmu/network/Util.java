@@ -16,8 +16,6 @@ import java.util.Properties;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.conn.ConnectTimeoutException;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -38,6 +36,7 @@ public class Util {
 	public static int MAP_ZOOM_LEVEL = 16;
 	private final static String FILENAME_PREFIX = "IMG_";
 	private static String BM_FILENAME = "temp_bm";
+	private static String GCM_API = "gcm_api";
 
 	public static void cacheBitmap(Context context, Bitmap bm) {
 		FileOutputStream fos;
@@ -316,9 +315,12 @@ public class Util {
 		try {
 			return Integer.parseInt(result) == HttpStatus.SC_OK;
 		} catch (Exception e) {
-			
+
 		}
 		return false;
 	}
 
+	public static String getGCMAPI(Context context) {
+		return Util.getProperty(context, GCM_API);
+	}
 }

@@ -46,9 +46,8 @@ public class RegisterActivity extends Activity {
 
 	/*
 	 * ==========================================================================
-	 * ======= NESTED CLASSES
+	 * NESTED CLASSES
 	 * ====================================================
-	 * =============================
 	 */
 	private class POSTRequest extends NetworkRequestFactory {
 		public POSTRequest(Context context) {

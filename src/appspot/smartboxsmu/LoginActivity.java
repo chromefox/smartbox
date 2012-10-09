@@ -21,6 +21,7 @@ import appspot.smartboxsmu.network.CustomProgressDialog;
 import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.URL;
 import appspot.smartboxsmu.network.Util;
+import appspot.smartboxsmu.parcelable.User;
 
 public class LoginActivity extends Activity {
 
@@ -63,7 +64,7 @@ public class LoginActivity extends Activity {
 			dialog = CustomProgressDialog.show(context, "", "Signing in");
 			super.setCustomProgressDialog(dialog);
 		}
-
+		
 		@Override
 		public HttpUriRequest sendDataToServer(String url)
 				throws JSONException, UnsupportedEncodingException {
@@ -83,9 +84,15 @@ public class LoginActivity extends Activity {
 		@Override
 		public void parseResponseFromServer(String result) {
 			if (statusCode == HttpStatus.SC_OK) {
+				//Store User Data returned from the server on Main Application global variable
+				User user = new User();
+				user.mapObject(result);
+				MainApplication.user = user;
+				
 				//Switch to other activity
 				Activity act = (Activity) context;
 				Intent intent = new Intent(act, HomeActivity.class);
+				intent.putExtra("user", user);
 				act.startActivity(intent);
 				//Destroy current Activity
 				act.finish();
