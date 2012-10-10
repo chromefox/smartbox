@@ -16,4 +16,5 @@ public class URL {
 	public static final String SEND_MESSAGE = DOMAIN + "/sendAll";
 	public static final String UNREGISTER_DEVICE = DOMAIN + "/unregisterDevice";
 	public static final String REGISTER = DOMAIN + "/register.do";
+	public static final String CONTACT_CHECK = DOMAIN + "/contactCheck";
 }

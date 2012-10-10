@@ -3,5 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ListView
+        android:id="@+id/add_group_contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_group_button"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_group_name" >
+    </ListView>
+
+    <Button
+        android:id="@+id/add_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Create Group" />
+
+    <EditText
+        android:id="@+id/add_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

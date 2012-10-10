@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import appspot.smartboxsmu.network.URL;
 
 public class HomeActivity extends Activity {
 
@@ -29,7 +30,13 @@ public class HomeActivity extends Activity {
     		startActivity(intent);
     		break;
     	case R.id.home_create_group:
-    		
+    		intent = new Intent(this, AddGroupActivity.class);
+    		startActivity(intent);
+    		break;
+    	case R.id.home_send_contact:
+            //Send a contact Check 
+            ContactCheckPOSTRequest post = new ContactCheckPOSTRequest(this);
+            post.execute(URL.CONTACT_CHECK);
     		break;
     	}
     }
