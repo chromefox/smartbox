@@ -18,20 +18,19 @@ import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.Util;
 
 public class SendMessagePOSTRequest extends NetworkRequestFactory {
-	
+
 	public SendMessagePOSTRequest(Context context) {
 		super(context, null, true);
 	}
-	
+
 	@Override
-	public HttpUriRequest sendDataToServer(String url)
-			throws JSONException, UnsupportedEncodingException {
+	public HttpUriRequest sendDataToServer(String url) throws JSONException,
+			UnsupportedEncodingException {
 		HttpPost post = getHttpPost(url);
 		JSONObject obj = new JSONObject();
-		obj.put("encodedKey", MainApplication.user.getEncodedKey());
 		obj.put("deviceRegId", MainApplication.user.getDeviceRegId());
 		obj.put("email", MainApplication.user.getEmail());
-		
+
 		StringEntity se = new StringEntity(obj.toString());
 		post.setEntity(se);
 		post.setHeader("Accept", "application/json");
@@ -45,7 +44,7 @@ public class SendMessagePOSTRequest extends NetworkRequestFactory {
 			GCMRegistrar.setRegisteredOnServer(context, true);
 			CommonUtilities.displayMessage(context, "success");
 		} else {
-			//Display error messages
+			// Display error messages
 			// Expected {error: String} JSON
 			JSONObject obj;
 			try {
@@ -59,6 +58,6 @@ public class SendMessagePOSTRequest extends NetworkRequestFactory {
 
 	@Override
 	public void additionalExceptionHandling() {
-		//EMPTY
+		// EMPTY
 	}
 }

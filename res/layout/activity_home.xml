@@ -28,7 +28,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="onClickHandler"
-        android:text="Button" />
+        android:text="Test Chat" />
 
     <Button
         android:id="@+id/home_send_contact"

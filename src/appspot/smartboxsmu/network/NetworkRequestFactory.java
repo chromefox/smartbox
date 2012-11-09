@@ -85,7 +85,7 @@ public abstract class NetworkRequestFactory extends AsyncTask<String, Void, Stri
 			for (String url : urls) {
 				try {
 					HttpUriRequest req = sendDataToServer(url);
-
+					if(req == null) return "error";
 					HttpResponse execute = client.execute(req);
 					InputStream content = execute.getEntity().getContent();
 					BufferedReader buffer = new BufferedReader(new InputStreamReader(content));

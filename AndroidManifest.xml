@@ -38,6 +38,7 @@
             android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -67,11 +68,29 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="appspot.smartboxsmu" />
             </intent-filter>
         </receiver>
-        
+
         <service android:name=".GCMIntentService" />
+
+        <activity
+            android:name=".TestWebActivity"
+            android:label="@string/title_activity_test_web" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="appspot.smartboxsmu.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".GroupPageActivity"
+            android:label="@string/title_activity_group_page" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package appspot.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -60,6 +61,14 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		Contact contact = getItem(position);
 		viewHolder.setValue(contact);
 		return convertView;
+	}
+	
+	public List<Contact> getCheckedContacts() {
+		ArrayList<Contact> list = new ArrayList<Contact>();
+		for(Contact contact : contacts) {
+			if(contact.isChecked()) list.add(contact);
+		}
+		return list;
 	}
 
 	// Implement ViewHolder for Factory design

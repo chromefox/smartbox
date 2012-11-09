@@ -1,5 +1,9 @@
 package appspot.smartboxsmu.parcelable;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Parcel;
@@ -7,15 +11,19 @@ import android.os.Parcelable;
 import android.util.Log;
 import appspot.smartboxsmu.model.Group;
 
+import com.google.gson.Gson;
+
 public class User implements Parcelable {
-	private String encodedKey;
 	private String username;
 	private String deviceRegId;
 	private String name;
 	private String email;
 	private String mobileNumber;
+	private ArrayList<Group> groupList;
 
 	public User() {
+		// initialization
+		groupList = new ArrayList<Group>();
 	};
 
 	// Standard implementation
@@ -35,7 +43,7 @@ public class User implements Parcelable {
 		mobileNumber = in.readString();
 		username = in.readString();
 		deviceRegId = in.readString();
-		encodedKey = in.readString();
+		in.readTypedList(groupList, Group.CREATOR);
 	}
 
 	// Method to write to a parcel (serialization)
@@ -45,7 +53,7 @@ public class User implements Parcelable {
 		out.writeString(mobileNumber);
 		out.writeString(username);
 		out.writeString(deviceRegId);
-		out.writeString(encodedKey);
+		out.writeTypedList(groupList);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -60,19 +68,35 @@ public class User implements Parcelable {
 	};
 
 	// {"encodedKey":"agtzbWFydGJveHNtdXIMCxIFVXNlcnMiAXQM","password":"t","priv":0,"name":"T","email":"t","mobileNumber":"2"}
+	public ArrayList<Group> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(ArrayList<Group> groupList) {
+		this.groupList = groupList;
+	}
+	
+	public void setGroupList(JSONArray array) throws JSONException {
+		for(int i = 0; i < array.length(); i++) {
+			JSONObject obj = (JSONObject) array.get(i);
+			Group group = new Gson().fromJson(obj.toString(), Group.class);
+			groupList.add(group);
+		}
+	}
+
 	public void mapObject(String JSONResponse) {
 		try {
 			JSONObject json = new JSONObject(JSONResponse);
 			this.setName(json.getString("name"));
 			this.setEmail(json.getString("email"));
 			this.setMobileNumber(json.getString("mobileNumber"));
-			this.setEncodedKey(json.getString("encodedKey"));
-
 			try {
 				this.setDeviceRegId(json.getString("deviceRegId"));
 			} catch (Exception e) {
 				this.setDeviceRegId("");
 			}
+			JSONArray array = json.getJSONArray("groupList");
+			this.setGroupList(array);
 		} catch (Exception e) {
 			Log.e("User mapping", "Mapping exception");
 		}
@@ -87,14 +111,6 @@ public class User implements Parcelable {
 
 	public String getUsername() {
 		return username;
-	}
-
-	public String getEncodedKey() {
-		return encodedKey;
-	}
-
-	public void setEncodedKey(String encodedString) {
-		this.encodedKey = encodedString;
 	}
 
 	public void setUsername(String username) {

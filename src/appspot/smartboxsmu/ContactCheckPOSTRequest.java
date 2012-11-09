@@ -52,6 +52,8 @@ public class ContactCheckPOSTRequest extends NetworkRequestFactory {
 			List<Contact> deviceContactList = new Gson().fromJson(result, collectionType);
 			//Save contacts to SQLLite
 			DatabaseHelper db = new DatabaseHelper(context);
+			//Drop table first and rewrite them
+			db.deleteContactTable();
 			for(Contact contact: deviceContactList) {
 				db.addContact(contact);
 			}

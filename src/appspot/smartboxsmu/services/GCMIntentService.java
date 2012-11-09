@@ -95,7 +95,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				throws JSONException, UnsupportedEncodingException {
 			HttpPost post = getHttpPost(url);
 			JSONObject obj = new JSONObject();
-			obj.put("encodedKey", MainApplication.user.getEncodedKey());
+			obj.put("email", MainApplication.user.getEmail());
 			obj.put("deviceRegId", MainApplication.user.getDeviceRegId());
 
 			StringEntity se = new StringEntity(obj.toString());

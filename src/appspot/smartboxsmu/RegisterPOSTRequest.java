@@ -28,7 +28,6 @@ public class RegisterPOSTRequest extends NetworkRequestFactory {
 			throws JSONException, UnsupportedEncodingException {
 		HttpPost post = getHttpPost(url);
 		JSONObject obj = new JSONObject();
-		obj.put("encodedKey", MainApplication.user.getEncodedKey());
 		obj.put("deviceRegId", MainApplication.user.getDeviceRegId());
 		obj.put("email", MainApplication.user.getEmail());
 		
