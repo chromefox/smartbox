@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.nfc.NfcAdapter.CreateNdefMessageCallback;
 import android.util.Log;
 import appspot.smartboxsmu.model.Group;
 import appspot.smartboxsmu.network.NetworkRequestFactory;

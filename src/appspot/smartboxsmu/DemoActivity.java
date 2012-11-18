@@ -90,8 +90,8 @@ public class DemoActivity extends Activity {
 		switch(view.getId()) {
 		case R.id.button1:
 			//test sending message to own device
-			SendMessagePOSTRequest post = new SendMessagePOSTRequest(this);
-			post.execute(URL.SEND_MESSAGE);
+//			SendMessagePOSTRequest post = new SendMessagePOSTRequest(this);
+//			post.execute(URL.SEND_MESSAGE);
 			break;
 		}
 	}

@@ -20,4 +20,6 @@ public class URL {
 	public static final String CONTACT_CHECK = DOMAIN + "/contactCheck";
 	public static final String ADD_GROUP = DOMAIN + "/addGroup";
 	public static final String GET_GROUP = DOMAIN + "/getGroup";
+	public static final String SEND_EVENT = DOMAIN + "/sendEvent";
+	public static final String FIND_SLOT = DOMAIN + "/findSlot";
 }

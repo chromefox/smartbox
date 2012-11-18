@@ -42,7 +42,6 @@ public class RegisterPOSTRequest extends NetworkRequestFactory {
 	public void parseResponseFromServer(String result) {
 		if (statusCode == HttpStatus.SC_OK) {
 			GCMRegistrar.setRegisteredOnServer(context, true);
-			CommonUtilities.displayMessage(context, "success");
 		} else {
 			//Display error messages
 			// Expected {error: String} JSON

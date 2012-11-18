@@ -59,7 +59,7 @@
             android:label="@string/title_activity_add_group" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="appspot.smartboxsmu.HomeActivity" />
+                android:value="appspot.smartboxsmu.HomeActivity"/>
         </activity>
 
         <receiver
@@ -85,11 +85,14 @@
         <activity
             android:name=".GroupPageActivity"
             android:label="@string/title_activity_group_page" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
+        <activity
+            android:name=".FindDateActivity"
+            android:label="@string/title_activity_find_date" >
         </activity>
     </application>
 

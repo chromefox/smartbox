@@ -66,7 +66,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 		//TODO: Add to the chat list or show notification
-		
+		Util.alertToast(context, "GCM msg received");
 		
 	}
 

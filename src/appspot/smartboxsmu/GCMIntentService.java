@@ -8,6 +8,7 @@ import android.util.Log;
 import appspot.gcm.example.CommonUtilities;
 import appspot.smartboxsmu.LoginActivity.POSTRequest;
 import appspot.smartboxsmu.network.URL;
+import appspot.smartboxsmu.network.Util;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
@@ -48,6 +49,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	@Override
 	protected void onMessage(Context context, Intent intent) {
+		Util.alertToast(context, "GOT GCM MESG");
 		CommonUtilities.displayMessage(context, "incoming message");
 	}
 

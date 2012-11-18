@@ -5,8 +5,8 @@ import java.util.List;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import appspot.smartboxsmu.parcelable.ChatMessage;
 import appspot.smartboxsmu.parcelable.Contact;
-import appspot.smartboxsmu.parcelable.User;
 
 public class Group implements Parcelable {
 	private Long id;
@@ -16,12 +16,31 @@ public class Group implements Parcelable {
 	private ArrayList<Contact> contacts;
 	private String userEmail;
 	private ArrayList<String> memberNames;
-	
+	private ArrayList<ChatMessage> messages;
+	private String encodedKey;
+
+	public String getEncodedKey() {
+		return encodedKey;
+	}
+
+	public void setEncodedKey(String encodedKey) {
+		this.encodedKey = encodedKey;
+	}
+
+	public ArrayList<ChatMessage> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(ArrayList<ChatMessage> messages) {
+		this.messages = messages;
+	}
+
 	public Group() {
 		// initialization
 		memberNames = new ArrayList<String>();
+		messages = new ArrayList<ChatMessage>();
 	};
-	
+
 	public Group(String groupName, String className, int sectionNumber) {
 		super();
 		this.groupName = groupName;
@@ -54,8 +73,12 @@ public class Group implements Parcelable {
 		className = in.readString();
 		sectionNumber = in.readInt();
 		userEmail = in.readString();
-		if(memberNames == null) memberNames = new ArrayList<String>();
+		if (memberNames == null)
+			memberNames = new ArrayList<String>();
+		encodedKey = in.readString();
 		in.readStringList(memberNames);
+		if(messages == null) messages = new ArrayList<ChatMessage>();
+		in.readTypedList(messages, ChatMessage.CREATOR);
 	}
 
 	// Method to write to a parcel (serialization)
@@ -64,7 +87,9 @@ public class Group implements Parcelable {
 		out.writeString(className);
 		out.writeInt(sectionNumber);
 		out.writeString(userEmail);
+		out.writeString(encodedKey);
 		out.writeStringList(memberNames);
+		out.writeTypedList(messages);
 	}
 
 	@Override

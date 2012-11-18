@@ -22,7 +22,7 @@ public class Contact implements Parcelable {
 		this.name = name;
 		this.mobileNumber = mobileNumber;
 	}
-
+	
 	// Standard implementation
 	public Contact(Parcel in) {
 		readFromParcel(in);

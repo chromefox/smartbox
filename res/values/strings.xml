@@ -26,5 +26,18 @@
     <string name="options_exit">Exit</string>
     <string name="title_activity_test_web">TestWebActivity</string>
     <string name="title_activity_group_page">GroupPageActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_find_date">FindDateActivity</string>
+    <string name="duration">Meeting Duration</string>
+    <string name="end_date">End Search Date</string>
+    <string name="find">Find</string>
+    <string-array name="duration">
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+        <item>6 hours </item>
+    </string-array>
 
 </resources>

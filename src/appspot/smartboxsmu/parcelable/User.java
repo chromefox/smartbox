@@ -20,11 +20,25 @@ public class User implements Parcelable {
 	private String email;
 	private String mobileNumber;
 	private ArrayList<Group> groupList;
-
+	private String encodedKey;
+	
+	
 	public User() {
 		// initialization
 		groupList = new ArrayList<Group>();
 	};
+	
+	public String getEncodedKey() {
+		return encodedKey;
+	}
+
+
+
+	public void setEncodedKey(String encodedKey) {
+		this.encodedKey = encodedKey;
+	}
+
+
 
 	// Standard implementation
 	public User(Parcel in) {
@@ -43,6 +57,7 @@ public class User implements Parcelable {
 		mobileNumber = in.readString();
 		username = in.readString();
 		deviceRegId = in.readString();
+		encodedKey = in.readString();
 		in.readTypedList(groupList, Group.CREATOR);
 	}
 
@@ -53,6 +68,7 @@ public class User implements Parcelable {
 		out.writeString(mobileNumber);
 		out.writeString(username);
 		out.writeString(deviceRegId);
+		out.writeString(encodedKey);
 		out.writeTypedList(groupList);
 	}
 
@@ -90,6 +106,7 @@ public class User implements Parcelable {
 			this.setName(json.getString("name"));
 			this.setEmail(json.getString("email"));
 			this.setMobileNumber(json.getString("mobileNumber"));
+			this.setEncodedKey(json.getString("encodedKey"));
 			try {
 				this.setDeviceRegId(json.getString("deviceRegId"));
 			} catch (Exception e) {
