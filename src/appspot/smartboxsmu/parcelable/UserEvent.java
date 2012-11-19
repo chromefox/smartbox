@@ -1,37 +1,47 @@
 package appspot.smartboxsmu.parcelable;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public class UserEvent {
 	private String details;
-	private DateTime startDateTime;
-	private DateTime endDateTime;
+	private Date startDate;
+	private Date endDate;
 	
 	public UserEvent() {
 		
 	}
 	
-	public UserEvent(String details, DateTime startDateTime,
-			DateTime endDateTime) {
+	public UserEvent(String details, Date startDate,
+			Date endDate) {
 		super();
 		this.details = details;
-		this.startDateTime = startDateTime;
-		this.endDateTime = endDateTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
-	public DateTime getStartDateTime() {
-		return startDateTime;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartDateTime(DateTime startDateTime) {
-		this.startDateTime = startDateTime;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public DateTime getEndDateTime() {
-		return endDateTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEndDateTime(DateTime endDateTime) {
-		this.endDateTime = endDateTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+	
+	
 }

@@ -52,6 +52,12 @@ public class LoginActivity extends Activity {
 			//Go to register page
 			intent = new Intent(this, RegisterActivity.class);
 			startActivity(intent);
+			break;
+			
+		case R.id.test_temp:
+			SendUserEventPOSTRequest post1 = new SendUserEventPOSTRequest(this);
+			post1.execute(URL.SEND_EVENT);
+			break;
 		}
 	}
     
