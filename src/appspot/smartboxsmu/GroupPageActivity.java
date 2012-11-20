@@ -30,19 +30,20 @@ public class GroupPageActivity extends Activity {
 
 	public void onClickHandler(View view) {
 		Intent intent;
-    	switch(view.getId()) {
-    	case R.id.group_find_meeting_button:
-    		//Go to the Find Date Activity
-    		  intent = new Intent (this, FindDateActivity.class);
-    		startActivity(intent);
-    		break;
-    	case R.id.group_chat_button:
-    		//Go to the Group Chat Page
-    		  intent = new Intent (this, ChatActivity.class);
-    		intent.putExtra("group", group);
-    		startActivity(intent);
-    		break;
-    	case R.id.group_task_button:
+		switch (view.getId()) {
+		case R.id.group_find_meeting_button:
+			// Go to the Find Date Activity
+			intent = new Intent(this, FindDateActivity.class);
+			intent.putExtra("group", group);
+			startActivity(intent);
+			break;
+		case R.id.group_chat_button:
+			// Go to the Group Chat Page
+			intent = new Intent(this, ChatActivity.class);
+			intent.putExtra("group", group);
+			startActivity(intent);
+			break;
+		case R.id.group_task_button:
     		
     		break;
     	}

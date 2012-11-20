@@ -10,7 +10,7 @@ package appspot.smartboxsmu.network;
  */
 public class URL {
 //	private static final String DOMAIN = "http://smartboxsmu.appspot.com";
-	private static final String DOMAIN = "http://192.168.2.109:8888";
+	private static final String DOMAIN = "http://192.168.1.179:8888";
 //	private static final String DOMAIN = "http://10.124.7.172:8888";
 	public static final String SIGN_IN = DOMAIN + "/logIn.do";
 	public static final String REGISTER_DEVICE = DOMAIN + "/registerDevice";

@@ -41,14 +41,9 @@ public class ChatActivity extends Activity {
 		chatList = (ListView) findViewById(R.id.chatList);
 		
 		setGroup(getIntent());
-
-
-
-
 		// Register broadcast receivers that will handle the messages
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
 				DISPLAY_MESSAGE_ACTION));
-       
     }
 
     @Override
