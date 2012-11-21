@@ -31,6 +31,7 @@
     <string name="duration">Meeting Duration</string>
     <string name="end_date">End Search Date</string>
     <string name="find">Find</string>
+
     <string-array name="duration">
         <item>1 hour</item>
         <item>2 hours</item>
@@ -39,5 +40,9 @@
         <item>5 hours</item>
         <item>6 hours </item>
     </string-array>
+
+    <string name="title_activity_find_date_result">FindDateResultActivity</string>
+    <string name="title_activity_find_slot_time">FindSlotTimeActivity</string>
+    <string name="title_activity_add_event">AddEventActivity</string>
 
 </resources>

@@ -3,9 +3,12 @@ package appspot.smartboxsmu;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract.Instances;
@@ -65,7 +69,8 @@ public class FindDatePOSTRequest extends NetworkRequestFactory {
 		post.setHeader("Content-type", "application/json");
 		return post;
 	}
-
+	
+	
 	@Override
 	public void parseResponseFromServer(String result) {
 		if (statusCode == HttpStatus.SC_OK) {
@@ -73,19 +78,17 @@ public class FindDatePOSTRequest extends NetworkRequestFactory {
 				JSONObject obj = new JSONObject(result);
 				Gson gson = new GsonBuilder().create();
 				Type collectionType = new TypeToken<ArrayList<FindSlotResult>>() {}.getType();
-				List<FindSlotResult> findSlotResults = gson.fromJson(obj.getJSONArray("dates").toString(), collectionType);
+				ArrayList<FindSlotResult> findSlotResults = gson.fromJson(obj.getJSONArray("dates").toString(), collectionType);
 				
-				//Display inside a listview or something
-				int b = 0;
-				
+				//Send the arraylist to a new activity
+				Intent intent = new Intent(context, FindDateResultActivity.class);
+				intent.putExtra("findResults", findSlotResults);
+				intent.putExtra("group", group);
+				context.startActivity(intent);
 			} catch (JSONException e) {
 				Log.e("FinDatePOST", e.toString());
 			}
 			
-			
-			
-			//Display the toast
-			Util.alertToast(context, "Calendar Synced");
 		} else {
 			// Display error messages
 			// Expected {error: String} JSON

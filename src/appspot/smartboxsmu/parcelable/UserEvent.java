@@ -6,17 +6,24 @@ public class UserEvent {
 	private String details;
 	private Date startDate;
 	private Date endDate;
-	
+
 	public UserEvent() {
-		
+
 	}
-	
-	public UserEvent(String details, Date startDate,
-			Date endDate) {
+
+	public UserEvent(String details, Date startDate, Date endDate) {
 		super();
 		this.details = details;
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+
+	public long getStartDateMillis() {
+		return startDate.getTime();
+	}
+
+	public long getEndDateMillis() {
+		return endDate.getTime();
 	}
 
 	public Date getStartDate() {
@@ -42,6 +49,10 @@ public class UserEvent {
 	public void setDetails(String details) {
 		this.details = details;
 	}
-	
-	
+
+	public static UserEvent instantiate(FindSlotResult result, String name) {
+		return new UserEvent(name, result.getStartDateObject(),
+				result.getEndDateObject());
+	}
+
 }
