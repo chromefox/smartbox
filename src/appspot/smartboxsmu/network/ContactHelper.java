@@ -24,6 +24,7 @@ public class ContactHelper {
 			String hasPhone = cursor
 					.getString(cursor
 							.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+			
 			if (Boolean.parseBoolean(hasPhone) || Integer.parseInt(hasPhone) == 1) {
 				// You know it has a number so now query it like this
 				Cursor phones = context.getContentResolver().query(

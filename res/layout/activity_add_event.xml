@@ -114,6 +114,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/add_event_location_edit_text"
         android:layout_toRightOf="@+id/add_event_location_edit_text"
+        android:onClick="onClickHandler"
         android:text="Find" />
 
 </RelativeLayout>

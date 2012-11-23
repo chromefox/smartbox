@@ -10,25 +10,36 @@
         android:layout_above="@+id/add_group_button"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/add_group_name" >
+
     </ListView>
+
+    <EditText
+        android:id="@+id/add_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_group_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" />
 
     <Button
         android:id="@+id/add_group_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:onClick="onClickHandler"
         android:text="Create Group" />
 
-    <EditText
-        android:id="@+id/add_group_name"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/add_group_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
+        android:gravity="bottom"
+        android:layout_toLeftOf="@+id/add_group_name"
+        android:text="Group Name" />
 
 </RelativeLayout>

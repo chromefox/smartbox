@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/home_create_group"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_below="@+id/textView1" >
+
     </ListView>
 
     <Button
@@ -17,26 +18,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-           android:onClick="onClickHandler"
-        android:text="Create Group" />
-
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="onClickHandler"
-        android:text="Test Event" />
+        android:text="Create Group" />
 
-    <Button
-        android:id="@+id/home_send_contact"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/test"
-        android:onClick="onClickHandler"
-        android:text="Send Contact" />
+        android:layout_alignParentLeft="true"
+        android:textSize="14dp"
+        android:layout_alignParentTop="true"
+        android:text="Group List" />
+
+    <TextView
+        android:id="@+id/home_page_no_group_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_below="@+id/textView1"
+         android:visibility="gone"
+        android:text="There is no group yet" />
 
 </RelativeLayout>

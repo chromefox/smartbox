@@ -100,11 +100,7 @@ public class FindSlotTimeActivity extends Activity {
 
     
     public void onClickHandler(View view) {
-    	switch(view.getId()) {
-    	case R.id.test:
-//    		insertEvent();
-    		break;
-    	}
+    	
     }
     
    

@@ -1,26 +1,16 @@
 package appspot.smartboxsmu;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract.Calendars;
-import android.provider.CalendarContract.Events;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import appspot.smartboxsmu.helpers.CalendarEventHelper;
 import appspot.smartboxsmu.model.Group;
 import appspot.smartboxsmu.network.URL;
 import appspot.smartboxsmu.parcelable.FindSlotResult;
+import appspot.smartboxsmu.parcelable.LocationSuggestions;
 
 public class AddEventActivity extends Activity {
 	private FindSlotResult result;
@@ -28,6 +18,15 @@ public class AddEventActivity extends Activity {
 	private EditText name;
 	private EditText location;
 	private Group group;
+	private LocationSuggestions chosenSuggestion;
+	
+	public void setChosenSuggestion(LocationSuggestions suggestion) {
+		this.chosenSuggestion = suggestion;
+	}
+	
+	public void setPlaceName(String placeName) {
+		location.setText(placeName);
+	}
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,12 +59,15 @@ public class AddEventActivity extends Activity {
 		   //TODO validation
 		   //Send the event to the server
 		   //Event is saved to device only in the case where event is successfully created
-		   CalendarEventPOSTRequest post = new CalendarEventPOSTRequest(this, result, name.getText().toString(), location.getText().toString(), group);
+		   //MUST check whether chosenSuggestion is null or not, create new object and pass it 
+		   
+		   //TODO if have time, editchange => nullify the chosenSuggestion obj
+		   CalendarEventPOSTRequest post = new CalendarEventPOSTRequest(this, result, name.getText().toString(), location.getText().toString(), group, chosenSuggestion);
 		   post.execute(URL.ADD_EVENT);
 		   break;
 	   case R.id.add_event_check_location:
-		   //TODO Rishik's code here to set the lat long, too
-		   
+		   LocationCheckGETRequest get = new LocationCheckGETRequest(this);
+		   get.execute(URL.AUTOCOMPLETE + location.getText().toString().replaceAll(" ", "+"));
 	   }
    }
 

@@ -29,6 +29,7 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.util.Log;
 import appspot.smartboxsmu.model.Group;
+import appspot.smartboxsmu.network.CustomProgressDialog;
 import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.Util;
 import appspot.smartboxsmu.parcelable.FindSlotResult;
@@ -46,6 +47,8 @@ public class FindDatePOSTRequest extends NetworkRequestFactory {
 	
 	public FindDatePOSTRequest(Context context, int duration, long startDate, long endDate, Group group) {
 		super(context, null, true);
+		dialog = CustomProgressDialog.show(context, "", "Finding a slot for you");
+		super.setCustomProgressDialog(dialog);
 		this.duration = duration;
 		this.endDate = endDate;
 		this.group = group;

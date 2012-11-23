@@ -4,14 +4,19 @@ import static appspot.gcm.example.CommonUtilities.SENDER_ID;
 import static appspot.gcm.example.CommonUtilities.SERVER_URL;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import appspot.adapter.GroupAdapter;
 import appspot.smartboxsmu.model.Group;
 import appspot.smartboxsmu.network.URL;
@@ -22,7 +27,19 @@ public class HomeActivity extends Activity {
 	private ListView groupListView;
 	private GroupAdapter adapter;
 	private ArrayList<Group> group;
+	private TextView noGroupTV;
 
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if(group != null && group.size() == 0) {
+			noGroupTV.setVisibility(View.VISIBLE);
+		} else {
+			noGroupTV.setVisibility(View.GONE);
+		}
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,6 +52,8 @@ public class HomeActivity extends Activity {
 		} else {
 			group = new ArrayList<Group>();
 		}
+		
+		noGroupTV = (TextView) findViewById(R.id.home_page_no_group_text);
 
 		// Setting up onItemClickHandler
 		groupListView
@@ -57,11 +76,39 @@ public class HomeActivity extends Activity {
 				R.id.add_group_contact_list, group);
 		// set adapter
 		groupListView.setAdapter(adapter);
-
+		
+		//Set adapter on global class
+		((MainApplication)getApplication()).setGroupAdapter(adapter);
+		
 		// Request Data and populate group array
 		// GroupPOSTRequest post = new GroupPOSTRequest(this, null,
 		// GroupPOSTRequest.GET_ALL_GROUPS);
 		// post.execute(URL.GET_GROUP);
+
+		// Set recurring alarm
+		setRecurringAlarm();
+		
+		//Sending data to the servers
+		ContactCheckPOSTRequest post = new ContactCheckPOSTRequest(this);
+		post.execute(URL.CONTACT_CHECK);
+		
+		SendUserEventPOSTRequest post1 = new SendUserEventPOSTRequest(this);
+		post1.execute(URL.SEND_EVENT);
+	}
+
+	private void setRecurringAlarm() {
+		Intent downloader = new Intent(this, AlarmReceiver.class);
+
+		Calendar cal = Calendar.getInstance();
+		// Start 30 seconds after boot completed
+		cal.add(Calendar.SECOND, 5);
+
+		PendingIntent recurringDownload = PendingIntent.getBroadcast(this, 0,
+				downloader, PendingIntent.FLAG_CANCEL_CURRENT);
+		AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+				cal.getTimeInMillis(), AlarmManager.INTERVAL_HALF_HOUR,
+				recurringDownload);
 	}
 
 	private void checkNotNull(Object reference, String name) {
@@ -70,6 +117,8 @@ public class HomeActivity extends Activity {
 					name));
 		}
 	}
+	
+	
 
 	public void registerDevice() {
 		checkNotNull(SERVER_URL, "SERVER_URL");
@@ -117,19 +166,14 @@ public class HomeActivity extends Activity {
 	public void onClickHandler(View view) {
 		Intent intent;
 		switch (view.getId()) {
-		case R.id.test:
 			// Test sending synced events here
-			SendUserEventPOSTRequest post1 = new SendUserEventPOSTRequest(this);
-			post1.execute(URL.SEND_EVENT);
-			break;
+//			SendUserEventPOSTRequest post1 = new SendUserEventPOSTRequest(this);
+//			post1.execute(URL.SEND_EVENT);
+//			PushLocationPOSTRequest post2 = new PushLocationPOSTRequest(this, 1.29686, 103.85220);
+//			post2.execute(URL.SEND_LOCATION);
 		case R.id.home_create_group:
 			intent = new Intent(this, AddGroupActivity.class);
 			startActivity(intent);
-			break;
-		case R.id.home_send_contact:
-			// Send a contact Sync
-			ContactCheckPOSTRequest post = new ContactCheckPOSTRequest(this);
-			post.execute(URL.CONTACT_CHECK);
 			break;
 		}
 	}

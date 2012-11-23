@@ -9,8 +9,8 @@ package appspot.smartboxsmu.network;
  * 
  */
 public class URL {
-//	private static final String DOMAIN = "http://smartboxsmu.appspot.com";
-	private static final String DOMAIN = "http://192.168.2.109:8888";
+	private static final String DOMAIN = "http://smartboxsmu.appspot.com";
+//	private static final String DOMAIN = "http://192.168.2.109:8888";
 //	private static final String DOMAIN = "http://10.124.7.172:8888";
 	public static final String SIGN_IN = DOMAIN + "/logIn.do";
 	public static final String REGISTER_DEVICE = DOMAIN + "/registerDevice";
@@ -23,4 +23,7 @@ public class URL {
 	public static final String SEND_EVENT = DOMAIN + "/sendEvent";
 	public static final String FIND_SLOT = DOMAIN + "/findSlot";
 	public static final String ADD_EVENT = DOMAIN + "/addEvent";
+	public static final String SEND_LOCATION = DOMAIN + "/addLocation";
+	public static final String REQUEST_LOCATION = DOMAIN + "/requestLocation";
+	public static final String AUTOCOMPLETE = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&components=country:SG&address=";
 }

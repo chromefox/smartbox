@@ -25,6 +25,7 @@ public class FindDateActivity extends Activity {
 	private int month;
 	private int day;
 	private Group group;
+	private boolean reschedule;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class FindDateActivity extends Activity {
 		Bundle extra = intent.getExtras();
 		if (extra != null) {
 			group = extra.getParcelable("group");
+			reschedule = extra.getBoolean("reschedule");
 		}
 	}
 

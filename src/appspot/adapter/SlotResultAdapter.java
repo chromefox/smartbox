@@ -2,6 +2,9 @@ package appspot.adapter;
 
 import java.util.List;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,7 @@ import appspot.smartboxsmu.parcelable.FindSlotResult;
 public class SlotResultAdapter extends ArrayAdapter<FindSlotResult> {
 	private Context context;
 	private List<FindSlotResult> results;
+	private static final String DATE_HOUR_FORMAT = "HH:mm";
 
 	public SlotResultAdapter(Context context, int resource, int textViewResourceId,
 			List<FindSlotResult> objects) {
@@ -73,7 +77,7 @@ public class SlotResultAdapter extends ArrayAdapter<FindSlotResult> {
 
 		public void setValue(FindSlotResult result) {
 			// set value here
-			slotTimeTextView.setText(result.getDate());
+			slotTimeTextView.setText(result.getStartTime());
 			availabilityTextView.setText(String.valueOf(result.getAvailableCount()));
 		}
 

@@ -70,9 +70,18 @@ public class ChatActivity extends Activity {
 		switch(view.getId()) {
 		case R.id.sendChatButton:
 			//test sending message to own devices
-			String chatMsg = ((EditText) findViewById(R.id.chatEditText)).getText().toString();
-			SendMessagePOSTRequest post = new SendMessagePOSTRequest(this, group, chatMsg);
-			post.execute(URL.SEND_MESSAGE);
+			String chatMsg = ((EditText) findViewById(R.id.chatEditText))
+					.getText().toString();
+
+			if (chatMsg.isEmpty()) {
+				Util.alertToast(this, "Please type a message");
+			} else {
+				//Empty chat
+				((EditText) findViewById(R.id.chatEditText)).setText("");
+				SendMessagePOSTRequest post = new SendMessagePOSTRequest(this,
+						group, chatMsg);
+				post.execute(URL.SEND_MESSAGE);
+			}
 			break;
 		}
 	}
@@ -94,9 +103,10 @@ public class ChatActivity extends Activity {
 			//On receive new message - Add new Message to the adapter and to the listview
 			String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
 			//Add the new message to the arraylist attached to the adapter and notify changes
-			messages.add(new ChatMessage(newMessage));
+			ChatMessage msg = new ChatMessage(newMessage);
+			messages.add(msg);
+			group.getMessages().add(msg);
 			chatAdapter.notifyDataSetChanged();
-			Util.alertToast(context, "msg received");
 		}
 	};
 }

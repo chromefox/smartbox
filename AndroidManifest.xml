@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="appspot.smartboxsmu"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -9,13 +9,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission> 
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+	<uses-feature android:name="android.hardware.nfc" />
     <!-- Permissions needed for Google Cloud Messaging to work -->
     <permission
         android:name="appspot.smartboxsmu.permission.C2D_MESSAGE"
@@ -29,20 +33,19 @@
     <uses-permission android:name="my_app_package.permission.C2D_MESSAGE" />
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="15" />
 
     <application
         android:name="appspot.smartboxsmu.MainApplication"
-        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:icon="@drawable/logo_icon"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -77,7 +80,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".GCMIntentService" />
+        <service android:name=".GCMIntentService" />        
+        <service android:name=".PushLocationService"/>             
+        <receiver android:name=".AlarmReceiver" >
+        </receiver>
 
         <activity
             android:name=".TestWebActivity"
@@ -101,6 +107,15 @@
         <activity
             android:name=".FindDateResultActivity"
             android:label="@string/title_activity_find_date_result" >
+        </activity>        
+        <activity
+            android:name=".BeamActivity"
+            android:label="Beam Activity" >            
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/appspot.smartboxsmu" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".FindSlotTimeActivity"

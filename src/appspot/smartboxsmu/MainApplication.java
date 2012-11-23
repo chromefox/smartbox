@@ -15,4 +15,10 @@ public class MainApplication extends Application {
 	public void onCreate() {
 		
 	}
+	public GroupAdapter getGroupAdapter() {
+		return groupAdapter;
+	}
+	public void setGroupAdapter(GroupAdapter groupAdapter) {
+		this.groupAdapter = groupAdapter;
+	}
 }

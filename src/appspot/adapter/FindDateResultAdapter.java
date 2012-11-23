@@ -3,6 +3,8 @@ package appspot.adapter;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -28,6 +30,8 @@ import appspot.smartboxsmu.R;
 public class FindDateResultAdapter extends ArrayAdapter<DateTime> {
 	private Context context;
 	private List<DateTime> dates;
+	public static final String DATE_DAY_FORMAT = "E, d MMM YYYY";
+	private static final String DATE_HOUR_FORMAT = "HH:mm";
 
 	public FindDateResultAdapter(Context context, int resource, int textViewResourceId,
 			List<DateTime> objects) {
@@ -72,7 +76,9 @@ public class FindDateResultAdapter extends ArrayAdapter<DateTime> {
 
 		public void setValue(DateTime date) {
 			// set value here
-			dateTextView.setText(date.toString());
+			DateTimeFormatter fmt2 = DateTimeFormat.forPattern(DATE_DAY_FORMAT);
+			String formattedDate = fmt2.print(date);
+			dateTextView.setText(formattedDate);
 		}
 
 	}

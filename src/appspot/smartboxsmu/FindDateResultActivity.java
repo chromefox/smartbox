@@ -28,6 +28,7 @@ public class FindDateResultActivity extends Activity {
 	private FindDateResultAdapter adapter;
 	private TreeMap<DateTime, ArrayList<FindSlotResult>> map;
 	private Group group;
+	public static final String DATE_DAY_FORMAT = "E, d MMM YYYY";
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {

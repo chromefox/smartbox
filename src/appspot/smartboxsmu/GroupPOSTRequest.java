@@ -9,13 +9,17 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import appspot.smartboxsmu.model.Group;
+import appspot.smartboxsmu.network.CustomProgressDialog;
 import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.Util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class GroupPOSTRequest extends NetworkRequestFactory {
 	public final static byte CREATE_GROUP = 0;
@@ -27,6 +31,8 @@ public class GroupPOSTRequest extends NetworkRequestFactory {
 	private Group group;
 	public GroupPOSTRequest(Context context, Group group, byte mode) {
 		super(context, null, true);
+		dialog = CustomProgressDialog.show(context, "", "Creating Group");
+		super.setCustomProgressDialog(dialog);
 		this.group = group;
 		this.mode = mode;
 	}
@@ -83,8 +89,16 @@ public class GroupPOSTRequest extends NetworkRequestFactory {
 			case CREATE_GROUP:
 				Util.alertToast(context, "Group Created");
 				//Append the Group to the groupAdapter and refresh the listview
-				
+				Gson gson = new GsonBuilder().create();
+				Group group = gson.fromJson(result, Group.class);
 				//Redirect to Group List Page
+				((MainApplication)((Activity)context).getApplication()).groupAdapter.add(group);
+				((MainApplication)((Activity)context).getApplication()).groupAdapter.notifyDataSetChanged();
+				
+				Intent intent = new Intent(context, HomeActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				context.startActivity(intent);
 				break;
 			case UPDATE_GROUP:
 				

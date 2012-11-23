@@ -11,7 +11,7 @@ import android.os.Parcelable;
 
 public class FindSlotResult implements Parcelable {
 	private static final String DATE_FORMAT = "E, d MMM YYYY, HH:mm";
-	private static final String DATE_DAY_FORMAT = "E, d MMM YYYY";
+	public static final String DATE_DAY_FORMAT = "E, d MMM YYYY";
 	private static final String DATE_HOUR_FORMAT = "HH:mm";
 	private String date;
 	private String endDate;

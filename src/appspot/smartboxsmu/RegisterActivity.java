@@ -37,17 +37,30 @@ public class RegisterActivity extends Activity {
 	public void onClickHandler(View view) {
 		switch (view.getId()) {
 		case R.id.register_button:
-			// Make a call to the server to create user			
-			POSTRequest post = new POSTRequest(this);
-			post.execute(URL.REGISTER);
+			// Make a call to the server to create user
+			String email = ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_email)).getText().toString();
+			String password = ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_password)).getText().toString();
+			String mobileNumber = ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_mobileNo)).getText().toString();
+			String name = ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_name)).getText().toString();
+
+			if (email.isEmpty() || password.isEmpty() || mobileNumber.isEmpty()
+					|| name.isEmpty()) {
+				Util.alertToast(this, "Fields cannot be empty");
+			} else {
+				POSTRequest post = new POSTRequest(this);
+				post.execute(URL.REGISTER);
+			}
 			break;
 		}
 	}
 
 	/*
 	 * ==========================================================================
-	 * NESTED CLASSES
-	 * ====================================================
+	 * NESTED CLASSES ====================================================
 	 */
 	private class POSTRequest extends NetworkRequestFactory {
 		public POSTRequest(Context context) {
@@ -61,16 +74,20 @@ public class RegisterActivity extends Activity {
 				throws JSONException, UnsupportedEncodingException {
 			HttpPost post = getHttpPost(url);
 			JSONObject obj = new JSONObject();
-			obj.put("email", ((EditText)RegisterActivity.this.findViewById(R.id.register_email)).getText().toString() );
-			obj.put("password", ((EditText)RegisterActivity.this.findViewById(R.id.register_password)).getText().toString());
-			obj.put("mobileNumber", ((EditText)RegisterActivity.this.findViewById(R.id.register_mobileNo)).getText().toString());
-			obj.put("name", ((EditText)RegisterActivity.this.findViewById(R.id.register_name)).getText().toString());
+			obj.put("email", ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_email)).getText().toString());
+			obj.put("password", ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_password)).getText().toString());
+			obj.put("mobileNumber", ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_mobileNo)).getText().toString());
+			obj.put("name", ((EditText) RegisterActivity.this
+					.findViewById(R.id.register_name)).getText().toString());
 
 			StringEntity se = new StringEntity(obj.toString());
 			post.setEntity(se);
 			post.setHeader("Accept", "application/json");
 			post.setHeader("Content-type", "application/json");
-			
+
 			return post;
 		}
 
@@ -78,6 +95,14 @@ public class RegisterActivity extends Activity {
 		public void parseResponseFromServer(String result) {
 			if (super.statusCode == HttpStatus.SC_OK) {
 				Util.alertToast(context, "Created");
+				LoginPOSTRequest post = new LoginPOSTRequest(context,
+						((EditText) RegisterActivity.this
+								.findViewById(R.id.register_email)).getText()
+								.toString(),
+						((EditText) RegisterActivity.this
+								.findViewById(R.id.register_password))
+								.getText().toString());
+				post.execute(URL.SIGN_IN);
 			}
 		}
 

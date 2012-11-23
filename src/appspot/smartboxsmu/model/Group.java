@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import appspot.smartboxsmu.parcelable.ChatMessage;
 import appspot.smartboxsmu.parcelable.Contact;
+import appspot.smartboxsmu.parcelable.Meeting;
 
 public class Group implements Parcelable {
 	private Long id;
@@ -17,10 +18,37 @@ public class Group implements Parcelable {
 	private String userEmail;
 	private ArrayList<String> memberNames;
 	private ArrayList<ChatMessage> messages;
+	private ArrayList<String> userDistances;
+	private ArrayList<String> members;
 	private String encodedKey;
+	private Meeting meeting;
+
+	public ArrayList<String> getUserDistances() {
+		return userDistances;
+	}
+
+	public void setUserDistances(ArrayList<String> userDistances) {
+		this.userDistances = userDistances;
+	}
+
+	public ArrayList<String> getMembers() {
+		return members;
+	}
+
+	public void setMembers(ArrayList<String> members) {
+		this.members = members;
+	}
 
 	public String getEncodedKey() {
 		return encodedKey;
+	}
+
+	public Meeting getMeeting() {
+		return meeting;
+	}
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}
 
 	public void setEncodedKey(String encodedKey) {
@@ -39,6 +67,8 @@ public class Group implements Parcelable {
 		// initialization
 		memberNames = new ArrayList<String>();
 		messages = new ArrayList<ChatMessage>();
+		userDistances = new ArrayList<String>();
+		members = new ArrayList<String>();
 	};
 
 	public Group(String groupName, String className, int sectionNumber) {
@@ -79,6 +109,13 @@ public class Group implements Parcelable {
 		in.readStringList(memberNames);
 		if(messages == null) messages = new ArrayList<ChatMessage>();
 		in.readTypedList(messages, ChatMessage.CREATOR);
+		meeting = in.readParcelable(Meeting.class.getClassLoader());
+		
+		if(userDistances == null) userDistances = new ArrayList<String>();
+		in.readStringList(userDistances);
+		
+		if(members == null) members = new ArrayList<String>();
+		in.readStringList(members);
 	}
 
 	// Method to write to a parcel (serialization)
@@ -90,6 +127,9 @@ public class Group implements Parcelable {
 		out.writeString(encodedKey);
 		out.writeStringList(memberNames);
 		out.writeTypedList(messages);
+		out.writeParcelable(meeting, 0);
+		out.writeStringList(userDistances);
+		out.writeStringList(members);
 	}
 
 	@Override

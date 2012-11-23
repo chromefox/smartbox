@@ -9,22 +9,14 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.EditText;
 import appspot.gcm.example.CommonUtilities;
-import appspot.smartboxsmu.HomeActivity;
-import appspot.smartboxsmu.LoginActivity;
 import appspot.smartboxsmu.MainApplication;
-import appspot.smartboxsmu.R;
-import appspot.smartboxsmu.LoginActivity.POSTRequest;
-import appspot.smartboxsmu.network.CustomProgressDialog;
 import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.URL;
 import appspot.smartboxsmu.network.Util;
-import appspot.smartboxsmu.parcelable.User;
 
 import com.google.android.gcm.GCMBaseIntentService;
 

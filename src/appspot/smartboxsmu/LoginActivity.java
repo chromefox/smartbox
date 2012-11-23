@@ -9,121 +9,120 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gcm.GCMRegistrar;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import appspot.smartboxsmu.network.CustomProgressDialog;
+import appspot.smartboxsmu.network.Names;
 import appspot.smartboxsmu.network.NetworkRequestFactory;
 import appspot.smartboxsmu.network.URL;
 import appspot.smartboxsmu.network.Util;
 import appspot.smartboxsmu.parcelable.User;
 
+import com.google.android.gcm.GCMRegistrar;
+
 public class LoginActivity extends Activity {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		GCMRegistrar.unregister(this);
+		setContentView(R.layout.activity_login);
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        GCMRegistrar.unregister(this);
-        setContentView(R.layout.activity_login);
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_login, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_login, menu);
-        return true;
-    }
-    
-    public void onClickHandler(View view) {
-    	Intent intent;
+	@SuppressLint("NewApi")
+	public void onClickHandler(View view) {
+		Intent intent;
 		switch (view.getId()) {
 		case R.id.login_button:
-			//Make a call to the server to authenticate user
-			POSTRequest post = new POSTRequest(this);
-			post.execute(URL.SIGN_IN);
+			// Make a call to the server to authenticate user
+
+			String email = ((EditText) LoginActivity.this
+					.findViewById(R.id.login_email)).getText().toString();
+			String password = ((EditText) LoginActivity.this
+					.findViewById(R.id.login_password)).getText().toString();
+			
+			if (email.isEmpty() || password.isEmpty()) {
+				Util.alertToast(this, "Fields cannot be empty");
+			} else {
+				LoginPOSTRequest post = new LoginPOSTRequest(this, email,
+						password);
+				post.execute(URL.SIGN_IN);
+			}
 			break;
 		case R.id.register_button:
-			//Go to register page
+			// Go to register page
 			intent = new Intent(this, RegisterActivity.class);
 			startActivity(intent);
 			break;
-			
-		case R.id.test_temp:
-			SendUserEventPOSTRequest post1 = new SendUserEventPOSTRequest(this);
-			post1.execute(URL.SEND_EVENT);
-			break;
+
+			// Testing the location manager
+			// latitude = currentLocation.getLatitude();
+			// longitude = currentLocation.getLongitude();
+			//
+			// Util.alertToast(this, String.valueOf(latitude) +
+			// String.valueOf(longitude));
+			//
+			// if
+			// (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+			// && !locationManager
+			// .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			// // if no location service is enabled: Display alertbox to go to
+			// // settings page
+			// AlertBoxes.locationAlertbox(this);
+			// }
+			//
 		}
 	}
-    
+
 	/*
 	 * ==========================================================================
 	 * ======= NESTED CLASSES
 	 * ====================================================
 	 * =============================
 	 */
-	public class POSTRequest extends NetworkRequestFactory {
-		public POSTRequest(Context context) {
-			super(context, null, true);
-			dialog = CustomProgressDialog.show(context, "", "Signing in");
-			super.setCustomProgressDialog(dialog);
-		}
-		
-		@Override
-		public HttpUriRequest sendDataToServer(String url)
-				throws JSONException, UnsupportedEncodingException {
-			HttpPost post = getHttpPost(url);
-			JSONObject obj = new JSONObject();
-			obj.put("email", ((EditText)LoginActivity.this.findViewById(R.id.login_email)).getText().toString() );
-			obj.put("password", ((EditText)LoginActivity.this.findViewById(R.id.login_password)).getText().toString());
 
-			StringEntity se = new StringEntity(obj.toString());
-			post.setEntity(se);
-			post.setHeader("Accept", "application/json");
-			post.setHeader("Content-type", "application/json");
-			
-			return post;
-		}
-
-		@Override
-		public void parseResponseFromServer(String result) {
-			if (statusCode == HttpStatus.SC_OK) {
-				//Store User Data returned from the server on Main Application global variable
-				User user = new User();
-				user.mapObject(result);
-				MainApplication.user = user;
-				
-				//Switch to other activity
-				Activity act = (Activity) context;
-				Intent intent = new Intent(act, HomeActivity.class);
-				intent.putExtra("user", user);
-				act.startActivity(intent);
-				//Destroy current Activity
-				act.finish();
-			} else {
-				//Display error messages
-				// Expected {error: String} JSON
-				JSONObject obj;
-				try {
-					obj = new JSONObject(result);
-					Util.alertToast(context, obj.getString("error"));
-				} catch (JSONException e) {
-					Log.e("Util", "JSON Parsing Error");
-				}
-			}
+	public static class AlertBoxes {
+		public static void locationAlertbox(final Context context) {
+			new AlertDialog.Builder(context)
+					.setMessage(
+							"Lovebyte needs at least one location service to be enabled for the feature to be enabled")
+					.setTitle("No Location Service enabled")
+					.setCancelable(true)
+					.setNegativeButton(android.R.string.cancel,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							})
+					.setNeutralButton(R.string.enable,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									// Go to the setting page
+									Intent i = new Intent(
+											android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+									context.startActivity(i);
+								}
+							}).show();
 		}
 
-		@Override
-		public void additionalExceptionHandling() {
-			//EMPTY
-		}
 	}
 
-
-    
 }

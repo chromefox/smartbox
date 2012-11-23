@@ -88,10 +88,8 @@ public class SendUserEventPOSTRequest extends NetworkRequestFactory {
 			// user has them selected for display.
 			final Cursor cursor = contentResolver.query(
 					Uri.parse("content://com.android.calendar/calendars"),
-					(new String[] { "_id", "displayName", "selected" }), null,
+					(new String[] { "_id", "displayName", "selected", "isPrimary" }), null,
 					null, null);
-			// For a full list of available columns see
-			// http://tinyurl.com/yfbg76w
 			HashSet<String> calendarIds = new HashSet<String>();
 
 			while (cursor.moveToNext()) {
@@ -175,8 +173,7 @@ public class SendUserEventPOSTRequest extends NetworkRequestFactory {
 		    for (int i = 0; i < CNames.length; i++) {
 		        String title = cur.getString(1);
 		        long beginVal = Long.parseLong(cur.getString(3));
-		        long endVal = Long.parseLong(cur.getString(4));		        
-//		        String detai
+		        long endVal = Long.parseLong(cur.getString(4));		
 //		        descriptions.add(cursor.getString(2));
 		        CNames[i] = cur.getString(1);
 		        DateTime beginDate = new DateTime(beginVal);

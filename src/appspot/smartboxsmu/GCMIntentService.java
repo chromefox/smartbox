@@ -48,6 +48,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	//MUST be the same as the server-defined identifiers.
 	public static final int CHAT_MESSAGE_IDENTIFIER = 0;
 	public static final int EVENT_CREATED_IDENTIFIER = 1;
+	public static final int LOCATION_REQUEST_IDENTIFIER = 2;
 	
 	@Override
 	protected void onError(Context context, String errorId) {
@@ -65,7 +66,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 			//notifies user
 			generateNotification(context, message);
 			break;
-			
 		case EVENT_CREATED_IDENTIFIER:
 			//Parse UserEvent
 			UserEvent userEvent = new Gson().fromJson(message, UserEvent.class);
@@ -73,6 +73,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 			CalendarEventHelper.insertEvent(userEvent, context);
 			//notify user
 			generateNotificationEvent(context, "A meeting has been added", userEvent);
+			break;
+			
+		case LOCATION_REQUEST_IDENTIFIER:
+			Intent service = new Intent(context, PushLocationService.class);
+			context.startService(service);
 			break;
 		}
 	}

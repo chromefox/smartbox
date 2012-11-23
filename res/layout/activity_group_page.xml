@@ -4,12 +4,11 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/group_page_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".GroupPageActivity" />
+        android:layout_marginTop="16dp"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/group_page_group_name"
@@ -17,44 +16,140 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="14dp"
+        android:textSize="18dp"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/group_page_member_name"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/group_page_group_name"
-        android:layout_below="@+id/group_page_group_name"
-        android:layout_marginTop="16dp"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/group_task_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="onClickHandler"
         android:layout_alignParentLeft="true"
-        android:text="Tasks" />
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/group_chat_button"
+        android:text="Upcoming Meeting" />
 
-    <Button
+    <TextView
+        android:id="@+id/group_page_meeting_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_below="@+id/textView1"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/group_page_meeting_start_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_below="@+id/group_page_meeting_name_text"
+        android:text="start time" />
+
+    <TextView
+        android:id="@+id/group_page_meeting_end_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_below="@+id/group_page_meeting_start_text"
+        android:text="end time" />
+
+    <ImageButton
         android:id="@+id/group_find_meeting_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/group_task_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/group_page_member_name"
+        android:layout_marginTop="16dp"
+        android:background="#80FFFFFF"
+        android:height="100dp"
         android:onClick="onClickHandler"
-        android:text="Find meeting time" />
+        android:scaleType="fitXY"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/picture1"
+        android:width="200dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/group_chat_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/group_find_meeting_button"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/group_find_meeting_button"
+        android:background="#80FFFFFF"
+        android:height="100dp"
+        android:onClick="onClickHandler"
+        android:scaleType="fitXY"
+        android:src="@drawable/picture2"
+        android:width="200dp" />
+
+    <TextView
+        android:id="@+id/group_page_meeting_location_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/group_find_meeting_button"
-        android:onClick="onClickHandler"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_below="@+id/group_page_meeting_end_text"
+        android:text="location" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
         android:layout_alignParentLeft="true"
-        android:text="Group chat" />
+        android:text="Title :" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:text="Start Time :" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:text="End Time :" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView4"
+        android:text="Location :" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="10dp"
+        android:text="Member Arrival Time" />
+
+    <ListView
+        android:id="@+id/group_page_member_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView6" >
+    </ListView>
+
+    <ImageButton
+        android:id="@+id/group_page_refresh_time_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/group_page_meeting_location_text"
+        android:layout_toRightOf="@+id/group_chat_button"
+        android:background="#80FFFFFF"
+        android:onClick="onClickHandler"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_menu_refresh" />
 
 </RelativeLayout>
